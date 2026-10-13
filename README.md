@@ -4,7 +4,7 @@ Site public : https://tanous2.github.io/PortoKitch/
 
 Design KOSH : identité visuelle, photos originales des restaurants, accueil, cartes, recherche, catégories, favoris, options des produits et navigation horizontale supérieure. Minha est affichée à 18h45, horaire à confirmer auprès de la communauté.
 
-Les interfaces de démonstration et les parcours de commande non opérationnels ne sont pas proposés sur cette publication publique. Aucun compte partagé ni aucune collecte de coordonnées de commande.
+Les interfaces professionnelles de démonstration sont retirées. Le panier, les options, quantités, modes de réception, frais et remises utilisent le système d’origine de PortoKitch. Le code de connexion d’origine est conservé. Sans connexion à sa base de données, le site s’arrête au récapitulatif avant paiement : aucune commande n’est annoncée comme envoyée et aucun paiement n’est proposé.
 
 ## Modifier le site
 La branche `main` est la source de GitHub Pages : les changements y sont publiés automatiquement.
