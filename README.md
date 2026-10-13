@@ -1,35 +1,22 @@
-# Porto Kitch
+# PortoKitch · KOSH
 
-Plateforme de commande casher à Porto : restaurants, épicerie, agenda communautaire, jeux d'attente, espace restaurateur.
+Site public : https://tanous2.github.io/PortoKitch/
 
-## Contenu
-- `index.html` : toute l'application (interface, logique, catalogue) dans un seul fichier, sans dépendance à installer.
-- `img/` : logos, affiches des restaurants, photos des événements.
-- `data/catalogue.csv` : la carte d'origine de chaque enseigne (source du catalogue intégré dans `index.html`).
+Design KOSH : identité visuelle, photos originales des restaurants, accueil, cartes, recherche, catégories, favoris, options des produits et navigation horizontale supérieure. Minha est affichée à 18h45, horaire à confirmer auprès de la communauté.
 
-## Voir l'application
-Ouvrir `index.html` depuis un petit serveur web (par exemple `python3 -m http.server` dans ce dossier, puis http://localhost:8000), ou activer GitHub Pages sur le dépôt.
+Les interfaces de démonstration et les parcours de commande non opérationnels ne sont pas proposés sur cette publication publique. Aucun compte partagé ni aucune collecte de coordonnées de commande.
 
-## État actuel : maquette fonctionnelle, pas encore un service en ligne
-Hors de Claude, l'application tourne en **mode démo** : commandes, cartes modifiées, notes, classement et événements restent sur l'appareil et ne sont partagés avec personne.
+## Modifier le site
+La branche `main` est la source de GitHub Pages : les changements y sont publiés automatiquement.
 
-Dans le code, tout ce qui doit devenir une vraie base de données passe par deux points :
-- `put(chemin, données)` pour écrire ;
-- les abonnements `db.collection(...).onSnapshot(...)` en fin de fichier pour lire en direct.
+- `index.html` : interface KOSH, styles, scripts et catalogue intégrés dans un seul fichier.
+- `img/` : photographies originales des restaurants, conservées.
+- `data/catalogue.csv` : catalogue d’origine.
 
-Collections attendues : `menus/<restaurant>` (carte modifiée, stock, horaires, lien Revolut, codes promo, code d'accès), `orders/<id>` (commandes, statut, note, réclamations), `events/<id>` (agenda), `scores/<joueur>` (classement des jeux), `conf/main` (code organisateur).
+## Service de commande
+La version KOSH complète dispose séparément d’un serveur Python et d’une base SQLite pour les commandes, comptes et suivi professionnel. Leur hébergement doit être configuré avant de réintroduire ces fonctions ici. GitHub Pages sert des fichiers statiques ; il ne lance pas ce serveur.
 
-## Reste à faire pour une mise en ligne
-1. Un serveur et une vraie base de données derrière `put()` et les abonnements.
-2. De vrais comptes restaurateurs (aujourd'hui : un simple code, `0000` par défaut, vérifié dans le navigateur, donc sans valeur de sécurité).
-3. Protection des données clients : aujourd'hui toute personne ayant accès à la base lit toutes les commandes.
-4. Calcul des prix, du stock et des codes promo côté serveur (aujourd'hui dans le navigateur).
-5. Paiement : lien Revolut du restaurateur, validation manuelle. Pas de confirmation automatique.
-6. Livraison : la course Glovo est réservée à la main par le restaurateur.
-7. Notifications, suivi GPS, impression des tickets.
-8. Remplacer les événements d'exemple et faire confirmer les horaires de prière (calculés sur le coucher du soleil à Porto).
+Ne pas ajouter de base privée, clés ou données de compte réel au dépôt public.
 
-## Réglages utiles dans le code
-- Commission par commande : `COM` (1,50 €). Frais de livraison : `FEE` (3,50 €).
-- Horaires par défaut : 19h-23h, sauf `HRS` (O'Kaffé 10h-22h, Le J 12h30-14h30).
-- Langues : objets `T.fr`, `T.en`, `T.he`, `T.pt`.
+## Publication depuis GitHub
+Le fichier `index.html` livré dans cette archive intègre les styles, scripts, logo et photographie d’accueil. Remplacer uniquement le `index.html` à la racine du dépôt PortoKitch en conservant le dossier `img/` existant. GitHub Pages publie ensuite la branche `main`.
