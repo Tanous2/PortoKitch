@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Porto Kitch</title><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Porto Kitch"><meta name="theme-color" content="#0a1024"><link rel="apple-touch-icon" href="img/pk.jpg"><link rel="icon" href="img/pk.jpg">
+<title>Porto Kitch</title><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Porto Kitch"><meta name="theme-color" content="#0a1024"><link rel="apple-touch-icon" href="img/apple-touch-icon.png"><link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="KOSH"><link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png"><link rel="icon" type="image/png" sizes="512x512" href="img/icon-512.png">
 <style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap">
@@ -963,7 +963,7 @@ const s0=A.sstore;A.sstore=function(v){s0(v);S.sg=""};
 /* ---------- Retour à la page précédente (bouton, geste iPhone) ---------- */
 (function(){
 let key=null,popping=false;const base=render;
-const snap=()=>({tab:S.tab,rid:S.rid||null,tk:S.tk||null,sg:S.sg||"",wk:S.wk||0});
+const snap=()=>({tab:window.kRealTab||S.tab,rid:S.rid||null,tk:S.tk||null,sg:S.sg||"",wk:S.wk||0});
 const k=()=>{const s=snap();return [s.tab,s.rid,s.tk,s.sg,s.wk].join("|")};
 render=function(){base();const nk=k();try{if(key===null)history.replaceState(snap(),"");else if(nk!==key&&!popping)history.pushState(snap(),"")}catch(e){}key=nk;popping=false};
 window.addEventListener("popstate",e=>{const s=e.state;if(!s||!s.tab)return;popping=true;S.tab=s.tab;S.rid=s.rid;S.tk=s.tk;S.sg=s.sg||"";S.sc="";S.wk=s.wk||0;S.day=null;render();scrollTo(0,0)});
@@ -971,6 +971,115 @@ const standalone=navigator.standalone===true||(window.matchMedia&&matchMedia("(d
 if(standalone){let x0=null,y0=0;
 document.addEventListener("touchstart",e=>{const t0=e.touches[0],rtl=document.documentElement.dir==="rtl";x0=(rtl?innerWidth-t0.clientX:t0.clientX)<28?t0.clientX:null;y0=t0.clientY},{passive:true});
 document.addEventListener("touchend",e=>{if(x0==null)return;const t1=e.changedTouches[0],rtl=document.documentElement.dir==="rtl",dx=(t1.clientX-x0)*(rtl?-1:1);x0=null;if(dx>70&&Math.abs(t1.clientY-y0)<60)history.back()},{passive:true})}
+})();
+render();
+</script>
+<style>/* Suivi de livraison (13/10) */
+.trk{position:relative;border-radius:26px;overflow:hidden;background:#0d1328;color:#fff;height:440px;box-shadow:0 20px 50px #101a4326;isolation:isolate}
+.trk-road{position:absolute;inset:0;display:flex;height:100%;width:max-content;animation:trkRoad 26s linear infinite;will-change:transform}
+.trk-road img{height:100%;width:auto;display:block;flex:none}.trk-road img:nth-child(even){transform:scaleX(-1)}
+.trk-veil{position:absolute;inset:0;background:linear-gradient(180deg,#0d1328f0 0%,#0d1328b0 32%,#0d132800 60%,#0d132880 100%)}
+.trk-top{position:absolute;top:0;left:0;right:0;padding:22px 22px 0}
+.trk-tag{display:inline-block;font:600 10px/1 Inter,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;padding:7px 11px;border:1px solid #ffffff55;border-radius:999px;color:#ffe9a8;background:#ffffff14;backdrop-filter:blur(6px)}
+.trk-h1{color:#fff;font-family:"Frank Ruhl Libre",Georgia,"Times New Roman",serif;font-weight:500;font-size:34px;line-height:1.08;margin:14px 0 8px;letter-spacing:-.01em;text-wrap:balance;animation:trkFade .5s ease}
+.trk-sub{font-size:14px;color:#ffffffcc;margin:0;max-width:30ch;animation:trkFade .6s ease}
+.trk-rider{position:absolute;left:4%;bottom:13%;width:58%;max-width:400px;filter:drop-shadow(0 18px 14px #0008);transform-origin:14% 92%;animation:trkWheelie 1.4s ease-in-out infinite alternate;pointer-events:none}
+.trk-rider img{width:100%;height:auto;display:block}
+.trk-bot{position:absolute;left:22px;right:22px;bottom:16px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;font:600 10px/1 Inter,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#ffffffcc}
+.trk-bar{position:absolute;left:22px;right:22px;bottom:9px;height:2px;background:#ffffff33}.trk-bar i{display:block;height:100%;background:#ffe471;transition:width 1s linear}
+.trk-skip{position:absolute;top:20px;right:20px;z-index:2;border:1px solid #ffffff55;background:#ffffff1f;color:#fff;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:700;backdrop-filter:blur(6px)}
+@keyframes trkRoad{to{transform:translateX(-50%)}}@keyframes trkWheelie{from{transform:rotate(1.5deg) translateY(0)}to{transform:rotate(-2.5deg) translateY(-3px)}}@keyframes trkFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.trk-steps{position:absolute;left:22px;right:22px;bottom:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.trk-steps div{display:flex;flex-direction:column;align-items:center;gap:6px;font:600 10px/1.2 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#ffffff88;text-align:center}
+.trk-steps i{width:9px;height:9px;border-radius:50%;border:2px solid #ffffff66;background:transparent;transition:all .4s}
+.trk-steps div.done i{background:#ffe471;border-color:#ffe471}.trk-steps div.on i{background:#ffe471;border-color:#ffe471;box-shadow:0 0 0 4px #ffe47144}.trk-steps div.on{color:#fff}.trk-steps div.done{color:#ffffffcc}
+.trk-note{display:flex;align-items:center;gap:12px;margin-top:14px;padding:14px 16px;border-radius:18px;background:linear-gradient(135deg,#fff8dc,#fff);border:1px solid #f2dd8a;color:var(--navy,#101a43)}
+.trk-note .e{font-size:26px;line-height:1}.trk-note b{font-family:"Frank Ruhl Libre",Georgia,serif;font-size:19px;font-weight:700}.trk-note small{display:block;color:var(--mut,#66718c);font-size:12px}
+.trk-games{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.trk-games button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 6px;border-radius:18px;border:1px solid var(--line,#dce4f2);background:var(--card,#fff);color:var(--fg,#101a43);font-size:12px;font-weight:700;text-align:center}
+.trk-games .e{font-size:30px;line-height:1}.trk-games small{font-weight:500;color:var(--mut,#66718c);font-size:11px}
+.trk-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}.trk-row h3{margin:0;font-size:17px}
+.trk-eta{font-size:13px;color:var(--mut,#66718c)}
+@media(max-width:700px){.trk{height:420px;margin:0 -4px}.trk-h1{font-size:29px}.trk-rider{width:62%;bottom:15%}.trk-steps div{font-size:9px;letter-spacing:.04em}}
+@media(min-width:701px){.trk{height:480px}.trk-h1{font-size:42px}.trk-sub{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.trk-road,.trk-rider{animation:none}}
+</style>
+<script>
+(function(){
+const TXT={
+fr:{tag:["01 / La commande","02 / En cuisine","03 / En route","04 / Presque là"],h1:["Commande confirmée.","Le livreur a récupéré votre commande.","Le livreur est en route.","Le livreur arrive."],sub:["Le restaurant prépare votre repas avec soin.","Votre repas est au chaud, direction chez vous.","Encore quelques rues, le temps d'une partie.","Préparez vos couverts, on frappe bientôt !"],wait:"Pour patienter",lvl:"Niveau",track:"Suivre ma livraison",preview:"Aperçu du suivi de livraison",ticket:"Voir le ticket",eta:"Arrivée estimée vers",demo:"Aperçu : la livraison défile en accéléré.",steps:["Confirmée","En cuisine","En route","Arrivée"],notes:{tef:["Pense aux téfilines","Il est encore temps."],tefl:["Encore temps : téfilines","Avant le coucher du soleil."],minha:["Minha à {t}","Bon appétit !"],arvit:["Bon appétit · Arvit {t}","Netilat yadayim avant le pain."],eve:["Bon appétit !","Netilat yadayim avant le pain."],morn:["Modé ani ☀️","Belle journée à vous."],shab:["Chabbat chalom ✨","Allumage à {t}."],sat:["Chabbat chalom ✨","Havdala à {t}."]}},
+en:{tag:["01 / The order","02 / In the kitchen","03 / On the way","04 / Almost there"],h1:["Order confirmed.","Your rider has picked up your order.","Your rider is on the way.","Your rider is arriving."],sub:["The restaurant is preparing your meal with care.","Your meal is kept warm, heading to you.","A few streets left, time for a quick game.","Get your cutlery ready, knocking soon!"],wait:"While you wait",lvl:"Level",track:"Track my delivery",preview:"Delivery tracking preview",ticket:"View receipt",eta:"Estimated arrival around",demo:"Preview: the delivery runs in fast motion.",steps:["Confirmed","Cooking","On the way","Arrival"],notes:{tef:["Tefillin reminder","Still time today."],tefl:["Still time: tefillin","Before sunset."],minha:["Mincha at {t}","Enjoy your meal!"],arvit:["Enjoy · Arvit {t}","Netilat yadayim before bread."],eve:["Enjoy your meal!","Netilat yadayim before bread."],morn:["Modeh ani ☀️","Have a great day."],shab:["Shabbat shalom ✨","Candles at {t}."],sat:["Shabbat shalom ✨","Havdalah at {t}."]}},
+he:{tag:["01 / ההזמנה","02 / במטבח","03 / בדרך","04 / כמעט"],h1:["ההזמנה אושרה.","השליח אסף את ההזמנה.","השליח בדרך אליכם.","השליח מגיע."],sub:["המסעדה מכינה את הארוחה בקפידה.","הארוחה חמה ובדרך אליכם.","עוד כמה רחובות, זמן למשחק קצר.","הכינו סכו\"ם, דופקים בקרוב!"],wait:"בינתיים",lvl:"שלב",track:"מעקב משלוח",preview:"תצוגה מקדימה של המעקב",ticket:"לקבלה",eta:"הגעה משוערת בסביבות",demo:"תצוגה מקדימה: המשלוח רץ במהירות.",steps:["אושרה","במטבח","בדרך","הגעה"],notes:{tef:["תזכורת תפילין","עוד יש זמן."],tefl:["עוד זמן לתפילין","לפני השקיעה."],minha:["מנחה ב-{t}","בתיאבון!"],arvit:["בתיאבון · ערבית {t}","נטילת ידיים לפני הלחם."],eve:["בתיאבון!","נטילת ידיים לפני הלחם."],morn:["מודה אני ☀️","יום טוב."],shab:["שבת שלום ✨","הדלקת נרות ב-{t}."],sat:["שבת שלום ✨","הבדלה ב-{t}."]}},
+pt:{tag:["01 / O pedido","02 / Na cozinha","03 / A caminho","04 / Quase lá"],h1:["Pedido confirmado.","O estafeta recolheu o seu pedido.","O estafeta está a caminho.","O estafeta está a chegar."],sub:["O restaurante prepara a sua refeição com cuidado.","A refeição vai quente, a caminho de si.","Mais algumas ruas, tempo para um jogo.","Prepare os talheres, batemos à porta já!"],wait:"Enquanto espera",lvl:"Nível",track:"Seguir a entrega",preview:"Pré-visualizar o seguimento",ticket:"Ver o talão",eta:"Chegada estimada por volta das",demo:"Pré-visualização: a entrega corre acelerada.",steps:["Confirmado","Na cozinha","A caminho","Chegada"],notes:{tef:["Lembre-se do tefilin","Ainda há tempo."],tefl:["Ainda há tempo: tefilin","Antes do pôr do sol."],minha:["Minchá às {t}","Bom apetite!"],arvit:["Bom apetite · Arvit {t}","Netilat yadayim antes do pão."],eve:["Bom apetite!","Netilat yadayim antes do pão."],morn:["Modé ani ☀️","Bom dia para si."],shab:["Shabat shalom ✨","Velas às {t}."],sat:["Shabat shalom ✨","Havdalá às {t}."]}}};
+const T=()=>TXT[S.lang]||TXT.fr;
+const ETA=35*6e4,DEMO=8000;
+function torahNote(){const n=new Date(),dow=n.getDay(),ss=sunset(n.getFullYear(),n.getMonth(),n.getDate()),h=n.getHours(),N=T().notes,mn=+ss-20*6e4,ar=+ss+25*6e4,cd=+ss-18*6e4,hv=+ss+42*6e4,f=x=>lisT(new Date(x));
+let k,tm="";if(dow==6&&n<hv){k="sat";tm=f(hv)}else if(dow==5&&n>cd-120*6e4){k="shab";tm=f(cd)}else if(h<9)k="morn";else if(n<+ss-60*6e4)k="tef";else if(n<mn)k="tefl";else if(n<ar){k="minha";tm=f(ar);}else k="eve";
+if(k=="minha")return[N.arvit[0].replace("{t}",f(ar)),N.minha[1]];const r=N[k];return[r[0].replace("{t}",tm),r[1].replace("{t}",tm)]}
+const STS={pay:0,new:0,no:0,ok:1,prep:1,ready:1,go:2,done:3};function trkStep(o){if(!o)return Math.floor((Date.now()-(S.trkT0||0))/DEMO)%4;if(o.st in STS)return STS[o.st];const p=(Date.now()-o.t)/ETA;return p<.35?0:p<.55?1:p<.9?2:3}
+function trkPct(o){if(!o)return(((Date.now()-(S.trkT0||0))%(DEMO*4))/(DEMO*4))*100;if(o.st in STS)return[12,45,78,100][STS[o.st]];return Math.min(100,Math.max(0,(Date.now()-o.t)/ETA*100))}
+function vTrack(){const o=store.orders[S.tk],m=o&&merch(o.m),X=T(),st=trkStep(o),[n1,n2]=torahNote();if(!o&&!S.trkT0)S.trkT0=Date.now();
+const eta=o?lisT(new Date(o.t+ETA)):"";
+return `<div class="trk" id="trk"><div class="trk-road"><img src="img/rue.jpg" alt=""><img src="img/rue.jpg" alt=""><img src="img/rue.jpg" alt=""><img src="img/rue.jpg" alt=""></div><div class="trk-veil"></div>
+<button class="trk-skip" data-a="tab" data-v="${o?'ticket':'payment'}">${o?X.ticket:'‹ '+t('back')}</button>
+<div class="trk-top"><span class="trk-tag" id="trk-tag">${X.tag[st]}</span><h2 class="trk-h1" id="trk-h1">${X.h1[st]}</h2><p class="trk-sub" id="trk-sub">${X.sub[st]}</p></div>
+<div class="trk-rider"><img src="img/bradley.png" alt=""></div>
+<div class="trk-steps" id="trk-steps">${X.steps.map((s,i)=>`<div class="${i<st?"done":i==st?"on":""}"><i></i>${s}</div>`).join("")}</div><div class="trk-bar"><i id="trk-bar" style="width:${trkPct(o)}%"></i></div></div>
+${o?`<p class="trk-eta">${X.eta} <b>${eta}</b> · #${esc(o.code)}</p>`:`<p class="trk-eta">${X.demo}</p>`}
+<div class="trk-note"><span class="e">✨</span><div><b>${esc(n1)}</b><small>${esc(n2)}</small></div></div>
+<div class="trk-row"><h3>🎮 ${X.wait}</h3></div><div class="trk-games">${Object.keys(GM).map(k=>`<button data-a="gplay" data-v="${k}"><span class="e">${GM[k][1]}</span>${GM[k][0]}<small>${k==="wheel"?(gs.wbest?"🏆 "+gs.wbest:X.lvl+" 1/10"):X.lvl+" "+Math.min(10,(+gs.best[k]||0)+1)+"/10"}</small></button>`).join("")}</div>`}
+function trkTick(){if(S.tab!=="track"){clearInterval(S.trkIv);S.trkIv=0;return}const o=store.orders[S.tk],st=trkStep(o),X=T(),el=document.getElementById("trk-h1");if(!el)return;
+if(el.dataset.st!=String(st)){el.dataset.st=st;el.textContent=X.h1[st];el.style.animation="none";el.offsetHeight;el.style.animation="";document.getElementById("trk-tag").textContent=X.tag[st];const sb=document.getElementById("trk-sub");sb.textContent=X.sub[st];sb.style.animation="none";sb.offsetHeight;sb.style.animation="";[...document.getElementById("trk-steps").children].forEach((d,i)=>d.className=i<st?"done":i==st?"on":"")}
+document.getElementById("trk-bar").style.width=trkPct(o)+"%"}
+['track','game','games'].forEach(x=>publicTabs.add(x));
+A.track=function(v){if(v)S.tk=v;S.tab="track";S.trkT0=Date.now()};
+const gplay0=A.gplay;A.gplay=function(v){S.gFrom=S.tab;if(v==="wheel"&&typeof PK!=="undefined"){if(typeof arcade!=="undefined"&&arcade.allowed&&!arcade.allowed()){S.tab="games";return}S.gk="wheel";S.tab="game";return}return gplay0(v)};
+let realTab="";const ticket0=vTicket;vTicket=function(){const X=T();if(realTab==="track")return vTrack();if(realTab==="game")return vGame().replace('data-a="tab" data-v="games"',S.gFrom==="track"?'data-a="track"':'data-a="tab" data-v="home"');
+return ticket0()+`<button class="btn gold" style="width:100%;margin-top:12px" data-a="track" data-v="${S.tk}">🛵 ${X.track}</button>`};
+const pay0=publicPayment;publicPayment=function(){return pay0()+`<button class="btn sm ghost" style="width:100%;margin-top:10px" data-a="track">🛵 ${T().preview}</button>`};
+const r0=render;render=function(){const real=S.tab,alias=real==="track"||real==="game"?"ticket":real;realTab=real;window.kRealTab=real;S.tab=alias;try{r0()}finally{S.tab=real;realTab="";window.kRealTab=""}
+if(real==="track"){clearInterval(S.trkIv);S.trkIv=setInterval(trkTick,500)}if(real==="game"&&typeof startGame==="function")setTimeout(startGame,0)};
+})();
+render();
+</script>
+<script>
+/* ---------- Jeu : Wheelie Bradley ---------- */
+(function(){
+GM.wheel=["Wheelie Bradley","🏍️"];
+const D={fr:"Garde la roue avant en l'air devant l'hôtel. Touche pour relever, ne pose pas la roue !",en:"Keep the front wheel up in front of the hotel. Tap to lift, don't let it drop!",he:"שמרו על הגלגל הקדמי באוויר. הקישו כדי להרים, אל תנחיתו!",pt:"Mantém a roda da frente no ar em frente ao hotel. Toca para levantar, não a deixes cair!"};
+Object.keys(D).forEach(l=>{if(T[l])T[l].g_wheel=D[l]});
+const UI={fr:["Touche pour démarrer","Bradley a posé la roue !","Trop loin en arrière !","Record !","Record","Nouveau record !","Touche pour rejouer"],en:["Tap to start","Bradley dropped the wheel!","Too far back!","Best!","Best","New record!","Tap to retry"],he:["הקישו כדי להתחיל","ברדלי הנחית את הגלגל!","רחוק מדי לאחור!","שיא!","שיא","שיא חדש!","הקישו לשחק שוב"],pt:["Toca para começar","O Bradley pousou a roda!","Demasiado para trás!","Recorde!","Recorde","Novo recorde!","Toca para jogar outra vez"]};
+const ui=i=>(UI[S.lang]||UI.fr)[i];
+const bike=new Image(),road=new Image();bike.src="img/bradley.png";road.src="img/rue.jpg";
+function wheelGame(cv){const x=cv.getContext("2d"),k="wheel",W=320,H=460,dpr=Math.min(3,window.devicePixelRatio||1);cv.width=W*dpr;cv.height=H*dpr;x.scale(dpr,dpr);
+let st="ready",last=0,tm=0,lock=0,sc=0,why=0,fx=[],best=+gs.wbest||0,rec=false;
+let a=25,va=0,dist=0,mult=1,hold=0;
+const lvOf=m=>Math.min(10,Math.floor(m/60)+1),G=()=>46+Math.min(60,dist/12),SPD=()=>11+Math.min(9,dist/60);
+function init(){a=25;va=0;dist=0;sc=0;mult=1;hold=0;why=0;rec=false}
+function end(){lock=tm+.6;st="lose";const pts=Math.round(sc/4);gs.pts=(+gs.pts||0)+pts;if(sc>best){best=Math.round(sc);gs.wbest=best;rec=true;for(let i=0;i<16;i++)fx.push({x:160,y:200,vx:(Math.random()-.5)*400,vy:-Math.random()*400,l:1})}gs.best[k]=Math.max(+gs.best[k]||0,lvOf(best)-1);ls.set("pk-game",gs);if(typeof pushScore=="function")pushScore()}
+function tap(){if(st!="play"&&tm<lock)return;if(st!="play"){init();st="play";return}va=Math.min(va+58,115)}
+function update(dt){va-=G()*dt;if(a>52)va-=(a-52)*3.2*dt;a+=va*dt;const d=SPD()*dt;dist+=d;if(a>=40&&a<=62){hold+=dt;if(hold>2.5)mult=3;else if(hold>1)mult=2}else{hold=0;mult=1}sc+=d*mult;if(a<=0){a=0;why=0;return end()}if(a>=82){a=82;why=1;return end()}}
+function rr(X,Y,w,h,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath()}
+const F=(tx,sz,X,Y,c,w)=>{x.font=`${w||700} ${sz}px Inter,system-ui,sans-serif`;x.textAlign="center";x.textBaseline="middle";x.fillStyle=c||"#fff";x.fillText(tx,X,Y)};
+function draw(){x.clearRect(0,0,W,H);x.fillStyle="#0d1328";x.fillRect(0,0,W,H);
+const rh=330,rw=road.naturalWidth?road.naturalWidth*rh/road.naturalHeight:800,off=(dist*34)%(rw*2);
+if(road.naturalWidth)for(let i=-1;i<4;i++){const X=i*rw-off;if(X>W||X+rw<0)continue;x.save();if(i%2){x.translate(X+rw,0);x.scale(-1,1);x.drawImage(road,0,0,rw,rh)}else x.drawImage(road,X,0,rw,rh);x.restore()}
+const gy=330;x.fillStyle="#2b2b33";x.fillRect(0,gy,W,H-gy);x.fillStyle="#3a3a44";for(let i=-1;i<9;i++){const X=i*46-(dist*34)%46;x.fillRect(X,gy+36,26,4)}
+const gr=x.createLinearGradient(0,0,0,170);gr.addColorStop(0,"#0d1328ee");gr.addColorStop(1,"#0d132800");x.fillStyle=gr;x.fillRect(0,0,W,170);
+if(bike.naturalWidth){const bw=210,bh=bw*bike.naturalHeight/bike.naturalWidth,px=70,py=gy+6;x.save();x.translate(px,py);x.rotate(-(a-20)*Math.PI/180);x.drawImage(bike,-bw*.14,-bh*.92,bw,bh);x.restore()}
+x.fillStyle="#0008";x.beginPath();x.ellipse(70,gy+10,40,6,0,0,Math.PI*2);x.fill();
+// jauge
+F(`${Math.floor(sc)}`,30,W/2,34,"#fff");F(`${ui(4)} ${Math.max(best,Math.floor(sc))}`,11,W/2,62,"#ffffffbb",600);if(mult>1&&st=="play")F(`x${mult}`,26,W-40,110,"#ffe471");
+// angle meter
+const mx=W-26,my=gy-60;x.strokeStyle="#ffffff33";x.lineWidth=6;x.beginPath();x.arc(mx,my,22,Math.PI,Math.PI*1.5);x.stroke();x.strokeStyle=a>52?"#fc6a3c":"#ffe471";x.beginPath();x.arc(mx,my,22,Math.PI,Math.PI+Math.PI/2*Math.min(1,a/82));x.stroke();
+fx=fx.filter(p=>{x.fillStyle="#ffe471";x.fillRect(p.x,p.y,5,5);return p.l>0});
+if(st!="play"){x.fillStyle="#0d1328aa";x.fillRect(0,0,W,H);
+const title=st=="ready"?"Wheelie Bradley":rec?ui(5):(why?ui(2):ui(1));F(title,26,W/2,H/2-30,"#fff");
+x.font="500 13px Inter,system-ui,sans-serif";const sub=st=="ready"?t("g_wheel"):`${Math.floor(sc)} · ${ui(4)} ${best} · ${t("pts")} ${+gs.pts||0}`;if(st=="ready"){const w=sub.split(" ");let l="",y=H/2+4;w.forEach(k=>{if(x.measureText(l+" "+k).width>W-40){F(l,13,W/2,y,"#ffffffcc",500);l=k;y+=18}else l=(l?l+" ":"")+k});F(l,13,W/2,y,"#ffffffcc",500)}else F(sub,13,W/2,H/2+8,"#ffffffcc",500);
+F(st=="ready"?ui(0):ui(6),14,W/2,H/2+52,"#ffe471")}}
+function frame(ts){if(document.getElementById("gc")!==cv)return;const dt=Math.min(.033,(ts-last)/1000||0);last=ts;tm+=dt;fx.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=600*dt;p.l-=dt});if(st=="play")update(dt);draw();requestAnimationFrame(frame)}
+cv.addEventListener("pointerdown",e=>{e.preventDefault();tap()});requestAnimationFrame(frame)}
+const sg0=startGame;startGame=function(){const cv=document.getElementById("gc");if(S.gk==="wheel"){if(!cv||cv._on)return;if(typeof arcade!=="undefined"&&arcade.allowed&&!arcade.allowed())return;cv._on=1;if(typeof PK!=="undefined")cv._run=PK.run;return wheelGame(cv)}return sg0()};
 })();
 render();
 </script>
