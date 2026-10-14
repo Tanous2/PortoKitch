@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Porto Kitch</title><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Porto Kitch"><meta name="theme-color" content="#0a1024"><link rel="apple-touch-icon" href="img/apple-touch-icon.png"><link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="KOSH"><link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png"><link rel="icon" type="image/png" sizes="512x512" href="img/icon-512.png">
-<style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style></head><body><style id="kosh-boot">html{background:#f6f7fb}#app{opacity:0}</style>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap">
 <style>
@@ -1082,5 +1082,6 @@ cv.addEventListener("pointerdown",e=>{e.preventDefault();tap()});requestAnimatio
 const sg0=startGame;startGame=function(){const cv=document.getElementById("gc");if(S.gk==="wheel"){if(!cv||cv._on)return;if(typeof arcade!=="undefined"&&arcade.allowed&&!arcade.allowed())return;cv._on=1;if(typeof PK!=="undefined")cv._run=PK.run;return wheelGame(cv)}return sg0()};
 })();
 render();
+document.getElementById("kosh-boot")?.remove();
 </script>
 </body></html>
